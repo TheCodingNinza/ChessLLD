@@ -9,6 +9,8 @@ public class Bishop implements Piece{
         private Coordinate currentPosition;
         private Color color;
 
+        private Set<Coordinate> enemyPositions;
+
 
         public Bishop(Coordinate currentPosition, Color color) {
                 this.currentPosition = currentPosition;
@@ -49,13 +51,14 @@ public class Bishop implements Piece{
                 Cell[][] boardObj = board.getBoard();
 
                 Set<Coordinate> validPos = new HashSet<>();
+                Set<Coordinate> enemyPos = new HashSet<>();
 
                 for(int i = this.currentPosition.getX()-1, j = this.currentPosition.getY()-1;
                     i < 8 &&  i > -1 && j < 8 && j > -1;){
                         if(boardObj[i][j].isOccupied()){
                                 if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
                                         Coordinate tempPos = new Coordinate(i,j);
-                                        validPos.add(tempPos);
+                                        enemyPos.add(tempPos);
                                 }
                                 break;
                         }else{
@@ -70,7 +73,7 @@ public class Bishop implements Piece{
                         if(boardObj[i][j].isOccupied()){
                                 if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
                                         Coordinate tempPos = new Coordinate(i,j);
-                                        validPos.add(tempPos);
+                                        enemyPos.add(tempPos);
                                 }
                                 break;
                         }else{
@@ -85,7 +88,7 @@ public class Bishop implements Piece{
                         if(boardObj[i][j].isOccupied()){
                                 if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
                                         Coordinate tempPos = new Coordinate(i,j);
-                                        validPos.add(tempPos);
+                                        enemyPos.add(tempPos);
                                 }
                                 break;
                         }else{
@@ -100,7 +103,7 @@ public class Bishop implements Piece{
                         if(boardObj[i][j].isOccupied()){
                                 if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
                                         Coordinate tempPos = new Coordinate(i,j);
-                                        validPos.add(tempPos);
+                                        enemyPos.add(tempPos);
                                 }
                                 break;
                         }else{
@@ -111,12 +114,14 @@ public class Bishop implements Piece{
                         j--;
                 }
 
+                this.enemyPositions = enemyPos;
+
                 return validPos;
         }
 
         private boolean validatePosition(Coordinate position, Board board){
                 Set<Coordinate> validPos = validPositions(board);
-                return validPos.contains(position);
+                return validPos.contains(position) || this.enemyPositions.contains(position);
         }
 
         @Override

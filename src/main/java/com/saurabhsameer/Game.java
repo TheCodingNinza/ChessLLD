@@ -62,12 +62,20 @@ public class Game {
     }
 
     public void play(Coordinate currPos, Coordinate moveToPos){
-
+        System.out.println("current turn: "+this.currentTurn);
+        System.out.println("currentPos X: "+currPos.getX()+" Y: "+currPos.getY());
+        System.out.println("moveToPos X: "+moveToPos.getX()+" Y: "+moveToPos.getY());
+        if(this.board.getBoard()[currPos.getX()][currPos.getY()].isOccupied()){
+            System.out.println("type: "+this.board.getBoard()[currPos.getX()][currPos.getY()].getCurrentPieceOnCell().getClass());
+        }else{
+            System.out.println("nothing there");
+        }
         if(this.board.getBoard()[currPos.getX()][currPos.getY()].isOccupied() == false){
             return;
         }
 
         if(this.currentTurn == Turn.WHITE){
+            System.out.println("isMovementOfWhiteKingMandatory: "+isMovementOfWhiteKingMandatory);
             if(isMovementOfWhiteKingMandatory
                     && this.board.getBoard()[whiteKingCurrentPosition.getX()][whiteKingCurrentPosition.getY()]
                     .getCurrentPieceOnCell().validPositions(board).size() == 0){
@@ -75,7 +83,7 @@ public class Game {
                 return;
             }
             if(this.isMovementOfWhiteKingMandatory){
-                if(this.board.getBoard()[currPos.getX()][currPos.getY()]
+                if(this.board.getBoard()[currPos.getX()][currPos.getY()].isOccupied() || this.board.getBoard()[currPos.getX()][currPos.getY()]
                         .getCurrentPieceOnCell().getClass() != King.class
                         && this.board.getBoard()[currPos.getX()][currPos.getY()]
                         .getCurrentPieceOnCell().getColor() != Color.WHITE){
@@ -104,7 +112,8 @@ public class Game {
                 return;
             }
             if(this.isMovementOfBlackKingMandatory){
-                if(this.board.getBoard()[currPos.getX()][currPos.getY()]
+                if(this.board.getBoard()[currPos.getX()][currPos.getY()].isOccupied() &&
+                        this.board.getBoard()[currPos.getX()][currPos.getY()]
                         .getCurrentPieceOnCell().getClass() != King.class
                         && this.board.getBoard()[currPos.getX()][currPos.getY()]
                         .getCurrentPieceOnCell().getColor() != Color.BLACK){
@@ -113,11 +122,11 @@ public class Game {
             }
             boolean isMoved = playerTwo.moveAPiece(currPos, moveToPos);
             if(isMoved) {
-                if(this.board.getBoard()[currPos.getX()][currPos.getY()]
+                if(this.board.getBoard()[moveToPos.getX()][moveToPos.getY()]
                         .getCurrentPieceOnCell().getClass() == King.class){
                     this.blackKingCurrentPosition = moveToPos;
                 }
-                if(this.board.getBoard()[currPos.getX()][currPos.getY()]
+                if(this.board.getBoard()[moveToPos.getX()][moveToPos.getY()]
                         .getCurrentPieceOnCell().validPositions(board).contains(this.whiteKingCurrentPosition)){
                     this.isMovementOfWhiteKingMandatory = true;
                 }else{
@@ -140,6 +149,8 @@ public class Game {
             }
             System.out.println("");
         }
+        System.out.println("");
+        System.out.println("");
     }
 
 

@@ -10,6 +10,8 @@ public class King implements Piece{
     private Coordinate currentPosition;
     private Color color;
 
+    private Set<Coordinate> enemyPositions;
+
     public King(Coordinate currentPosition, Color color) {
         this.currentPosition = currentPosition;
         this.color = color;
@@ -47,6 +49,8 @@ public class King implements Piece{
     @Override
     public Set<Coordinate> validPositions(Board board){
         Set<Coordinate> validPos = new HashSet<>();
+        Set<Coordinate> enemyPos = new HashSet<>();
+
         Cell[][] boardObj = board.getBoard();
 
         int i, j;
@@ -57,7 +61,7 @@ public class King implements Piece{
             if(boardObj[i][j].isOccupied()){
                 if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
                     Coordinate tempPos = new Coordinate(i,j);
-                    validPos.add(tempPos);
+                    enemyPos.add(tempPos);
                 }
             }else{
                 Coordinate tempPos = new Coordinate(i,j);
@@ -71,7 +75,7 @@ public class King implements Piece{
             if(boardObj[i][j].isOccupied()){
                 if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
                     Coordinate tempPos = new Coordinate(i,j);
-                    validPos.add(tempPos);
+                    enemyPos.add(tempPos);
                 }
             }else{
                 Coordinate tempPos = new Coordinate(i,j);
@@ -85,7 +89,7 @@ public class King implements Piece{
             if(boardObj[i][j].isOccupied()){
                 if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
                     Coordinate tempPos = new Coordinate(i,j);
-                    validPos.add(tempPos);
+                    enemyPos.add(tempPos);
                 }
             }else{
                 Coordinate tempPos = new Coordinate(i,j);
@@ -99,7 +103,7 @@ public class King implements Piece{
             if(boardObj[i][j].isOccupied()){
                 if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
                     Coordinate tempPos = new Coordinate(i,j);
-                    validPos.add(tempPos);
+                    enemyPos.add(tempPos);
                 }
             }else{
                 Coordinate tempPos = new Coordinate(i,j);
@@ -114,7 +118,7 @@ public class King implements Piece{
             if(boardObj[i][j].isOccupied()){
                 if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
                     Coordinate tempPos = new Coordinate(i,j);
-                    validPos.add(tempPos);
+                    enemyPos.add(tempPos);
                 }
             }else{
                 Coordinate tempPos = new Coordinate(i,j);
@@ -128,7 +132,7 @@ public class King implements Piece{
             if(boardObj[i][j].isOccupied()){
                 if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
                     Coordinate tempPos = new Coordinate(i,j);
-                    validPos.add(tempPos);
+                    enemyPos.add(tempPos);
                 }
             }else{
                 Coordinate tempPos = new Coordinate(i,j);
@@ -142,7 +146,7 @@ public class King implements Piece{
             if(boardObj[i][j].isOccupied()){
                 if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
                     Coordinate tempPos = new Coordinate(i,j);
-                    validPos.add(tempPos);
+                    enemyPos.add(tempPos);
                 }
             }else{
                 Coordinate tempPos = new Coordinate(i,j);
@@ -156,13 +160,14 @@ public class King implements Piece{
             if(boardObj[i][j].isOccupied()){
                 if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
                     Coordinate tempPos = new Coordinate(i,j);
-                    validPos.add(tempPos);
+                    enemyPos.add(tempPos);
                 }
             }else{
                 Coordinate tempPos = new Coordinate(i,j);
                 validPos.add(tempPos);
             }
         }
+        this.enemyPositions = enemyPos;
 
         return validPos;
 
@@ -170,7 +175,7 @@ public class King implements Piece{
 
     private boolean validatePosition(Coordinate position,Board board){
         Set<Coordinate> validPos = validPositions(board);
-        boolean result = validPos.contains(position);
+        boolean result = validPos.contains(position) || this.enemyPositions.contains(position);
         if(result){
             List<Set<Coordinate>> unsafePositions = new ArrayList<>();
             Cell[][] boardObj = board.getBoard();

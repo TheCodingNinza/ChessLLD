@@ -8,6 +8,8 @@ public class Elephant implements Piece{
     private Coordinate currentPosition;
     private Color color;
 
+    private Set<Coordinate> enemyPositions;
+
     public Elephant(Coordinate currentPosition, Color color) {
         this.currentPosition = currentPosition;
         this.color = color;
@@ -45,6 +47,8 @@ public class Elephant implements Piece{
     @Override
     public Set<Coordinate> validPositions(Board board){
         Set<Coordinate> validPos = new HashSet<>();
+        Set<Coordinate> enemyPos = new HashSet<>();
+
         Cell[][] boardObj = board.getBoard();
 
         for(int i = this.currentPosition.getX()-1, j = this.currentPosition.getY();
@@ -52,7 +56,7 @@ public class Elephant implements Piece{
             if(boardObj[i][j].isOccupied()){
                 if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
                     Coordinate tempPos = new Coordinate(i,j);
-                    validPos.add(tempPos);
+                    enemyPos.add(tempPos);
                 }
                 break;
             }else{
@@ -66,7 +70,7 @@ public class Elephant implements Piece{
             if(boardObj[i][j].isOccupied()){
                 if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
                     Coordinate tempPos = new Coordinate(i,j);
-                    validPos.add(tempPos);
+                    enemyPos.add(tempPos);
                 }
                 break;
             }else{
@@ -80,7 +84,7 @@ public class Elephant implements Piece{
             if(boardObj[i][j].isOccupied()){
                 if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
                     Coordinate tempPos = new Coordinate(i,j);
-                    validPos.add(tempPos);
+                    enemyPos.add(tempPos);
                 }
                 break;
             }else{
@@ -94,7 +98,7 @@ public class Elephant implements Piece{
             if(boardObj[i][j].isOccupied()){
                 if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
                     Coordinate tempPos = new Coordinate(i,j);
-                    validPos.add(tempPos);
+                    enemyPos.add(tempPos);
                 }
                 break;
             }else{
@@ -104,12 +108,14 @@ public class Elephant implements Piece{
             j--;
         }
 
+        this.enemyPositions = enemyPos;
+
         return validPos;
     }
 
     private boolean validatePosition(Coordinate position, Board board){
         Set<Coordinate> validPos = validPositions(board);
-        return validPos.contains(position);
+        return validPos.contains(position) || this.enemyPositions.contains(position);
     }
 
     @Override

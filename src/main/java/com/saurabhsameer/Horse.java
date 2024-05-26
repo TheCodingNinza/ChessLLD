@@ -8,6 +8,8 @@ public class Horse implements Piece{
     private Coordinate currentPosition;
     private Color color;
 
+    private Set<Coordinate> enemyPositions;
+
     public Horse(Coordinate currentPosition, Color color) {
         this.currentPosition = currentPosition;
         this.color = color;
@@ -50,6 +52,7 @@ public class Horse implements Piece{
     @Override
     public Set<Coordinate> validPositions(Board board){
         Set<Coordinate> validPos = new HashSet<>();
+        Set<Coordinate> enemyPos = new HashSet<>();
         Cell[][] boardObj = board.getBoard();
 
         int i = -1, j = -1;
@@ -59,7 +62,7 @@ public class Horse implements Piece{
             if(boardObj[i][j].isOccupied()){
                 if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
                     Coordinate tempPos = new Coordinate(i,j);
-                    validPos.add(tempPos);
+                    enemyPos.add(tempPos);
                 };
             }else{
                 Coordinate tempPos = new Coordinate(i,j);
@@ -73,7 +76,7 @@ public class Horse implements Piece{
             if(boardObj[i][j].isOccupied()){
                 if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
                     Coordinate tempPos = new Coordinate(i,j);
-                    validPos.add(tempPos);
+                    enemyPos.add(tempPos);
                 }
             }else{
                 Coordinate tempPos = new Coordinate(i,j);
@@ -87,7 +90,7 @@ public class Horse implements Piece{
             if(boardObj[i][j].isOccupied()){
                 if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
                     Coordinate tempPos = new Coordinate(i,j);
-                    validPos.add(tempPos);
+                    enemyPos.add(tempPos);
                 }
             }else{
                 Coordinate tempPos = new Coordinate(i,j);
@@ -101,7 +104,7 @@ public class Horse implements Piece{
             if(boardObj[i][j].isOccupied()){
                 if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
                     Coordinate tempPos = new Coordinate(i,j);
-                    validPos.add(tempPos);
+                    enemyPos.add(tempPos);
                 }
             }else{
                 Coordinate tempPos = new Coordinate(i,j);
@@ -115,7 +118,7 @@ public class Horse implements Piece{
             if(boardObj[i][j].isOccupied()){
                 if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
                     Coordinate tempPos = new Coordinate(i,j);
-                    validPos.add(tempPos);
+                    enemyPos.add(tempPos);
                 }
             }else{
                 Coordinate tempPos = new Coordinate(i,j);
@@ -129,7 +132,7 @@ public class Horse implements Piece{
             if(boardObj[i][j].isOccupied()){
                 if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
                     Coordinate tempPos = new Coordinate(i,j);
-                    validPos.add(tempPos);
+                    enemyPos.add(tempPos);
                 }
             }else{
                 Coordinate tempPos = new Coordinate(i,j);
@@ -143,7 +146,7 @@ public class Horse implements Piece{
             if(boardObj[i][j].isOccupied()){
                 if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
                     Coordinate tempPos = new Coordinate(i,j);
-                    validPos.add(tempPos);
+                    enemyPos.add(tempPos);
                 }
             }else{
                 Coordinate tempPos = new Coordinate(i,j);
@@ -157,7 +160,7 @@ public class Horse implements Piece{
             if(boardObj[i][j].isOccupied()){
                 if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
                     Coordinate tempPos = new Coordinate(i,j);
-                    validPos.add(tempPos);
+                    enemyPos.add(tempPos);
                 }
             }else{
                 Coordinate tempPos = new Coordinate(i,j);
@@ -165,13 +168,15 @@ public class Horse implements Piece{
             }
         }
 
+        this.enemyPositions = enemyPos;
+
         return validPos;
         
     }
 
     private boolean validatePosition(Coordinate position, Board board){
         Set<Coordinate> validPos = validPositions(board);
-        return validPos.contains(position);
+        return validPos.contains(position) || this.enemyPositions.contains(position);
     }
 
 

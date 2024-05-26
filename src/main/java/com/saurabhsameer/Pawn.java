@@ -52,7 +52,7 @@ public class Pawn implements Piece{
 
             i = this.currentPosition.getX()-1;
             j = this.currentPosition.getY();
-            if(i >= 0 && i < 8 && j >= 0 && j < 8){
+            if(i >= 0 && i < 8 && j >= 0 && j < 8 && !boardObj[i][j].isOccupied()){
                 if(position.getX() == i && position.getY() == j){
                     return true;
                 }
@@ -79,7 +79,7 @@ public class Pawn implements Piece{
         }else{
             i = this.currentPosition.getX()+1;
             j = this.currentPosition.getY();
-            if(i >= 0 && i < 8 && j >= 0 && j < 8){
+            if(i >= 0 && i < 8 && j >= 0 && j < 8 && !boardObj[i][j].isOccupied()){
                 if(position.getX() == i && position.getY() == j){
                     return true;
                 }
@@ -126,12 +126,7 @@ public class Pawn implements Piece{
             i = this.currentPosition.getX()-1;
             j = this.currentPosition.getY()-1;
             if(i >= 0 && i < 8 && j >= 0 && j < 8){
-                if(boardObj[i][j].isOccupied()){
-                    if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
-                        Coordinate tempPos = new Coordinate(i,j);
-                        validPos.add(tempPos);
-                    }
-                }else{
+                if(!boardObj[i][j].isOccupied()){
                     Coordinate tempPos = new Coordinate(i,j);
                     validPos.add(tempPos);
                 }
@@ -140,12 +135,7 @@ public class Pawn implements Piece{
             i = this.currentPosition.getX()-1;
             j = this.currentPosition.getY()+1;
             if(i >= 0 && i < 8 && j >= 0 && j < 8){
-                if(boardObj[i][j].isOccupied()){
-                    if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
-                        Coordinate tempPos = new Coordinate(i,j);
-                        validPos.add(tempPos);
-                    }
-                }else{
+                if(!boardObj[i][j].isOccupied()){
                     Coordinate tempPos = new Coordinate(i,j);
                     validPos.add(tempPos);
                 }
@@ -155,12 +145,7 @@ public class Pawn implements Piece{
             i = this.currentPosition.getX()+1;
             j = this.currentPosition.getY()-1;
             if(i >= 0 && i < 8 && j >= 0 && j < 8){
-                if(boardObj[i][j].isOccupied()){
-                    if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
-                        Coordinate tempPos = new Coordinate(i,j);
-                        validPos.add(tempPos);
-                    }
-                }else{
+                if(!boardObj[i][j].isOccupied()){
                     Coordinate tempPos = new Coordinate(i,j);
                     validPos.add(tempPos);
                 }
@@ -169,12 +154,7 @@ public class Pawn implements Piece{
             i = this.currentPosition.getX()+1;
             j = this.currentPosition.getY()+1;
             if(i >= 0 && i < 8 && j >= 0 && j < 8){
-                if(boardObj[i][j].isOccupied()){
-                    if(boardObj[i][j].getCurrentPieceOnCell().getColor() != this.color){
-                        Coordinate tempPos = new Coordinate(i,j);
-                        validPos.add(tempPos);
-                    }
-                }else{
+                if(!boardObj[i][j].isOccupied()){
                     Coordinate tempPos = new Coordinate(i,j);
                     validPos.add(tempPos);
                 }

@@ -8,27 +8,36 @@ public class App {
         Board chessBoard = new Board();
 
 
-        Player whitePlayer = new Player("Saurabh", "saurabh@richa.com", Color.WHITE, chessBoard);
-        Player blackPlayer = new Player("Sameer", "sameer@richa.com", Color.BLACK, chessBoard);
+        Player whitePlayer = new Player("Saurabh", "saurabh@gmail.com", Color.WHITE, chessBoard);
+        Player blackPlayer = new Player("Sameer", "sameer@gmail.com", Color.BLACK, chessBoard);
 
         Game game = new Game(chessBoard, whitePlayer, blackPlayer);
 
+        Coordinate[] fromCoordinates = {
+                new Coordinate(1, 4), new Coordinate(6, 4), // Pawn moves
+                new Coordinate(0, 3), new Coordinate(7, 3), // Queen moves
+                new Coordinate(0, 2), new Coordinate(7, 2), // Bishop moves
+                new Coordinate(0, 0), new Coordinate(7, 0), // Rook moves
+                new Coordinate(1, 5), new Coordinate(4, 3)  // Pawn and queen moves
+        };
+
+        Coordinate[] toCoordinates = {
+                new Coordinate(2, 4), new Coordinate(5, 4),
+                new Coordinate(3, 3), new Coordinate(4, 3),
+                new Coordinate(3, 5), new Coordinate(4, 5),
+                new Coordinate(0, 2), new Coordinate(5, 0),
+                new Coordinate(2, 5), new Coordinate(2, 5)  // Checkmate move
+        };
+
 
         game.setStatus(GameStatus.ONGOING);
-        int count = 0;
+        int i = 0;
         while(game.getStatus() == GameStatus.ONGOING){
-            if(count == 0){
-                game.play(new Coordinate(1,0),
-                        new Coordinate(2,0));
-            }else{
-                game.play(RandomCoordinateGenerator.generateRandomCoordinate(),
-                        RandomCoordinateGenerator.generateRandomCoordinate());
-            }
-
-             if(count == 5)
-                 break;
-             game.printBoard();
-             count++;
+                game.play(fromCoordinates[i], toCoordinates[i]);
+                i++;
+                game.printBoard();
+//                if(i == 8)
+//                    break;
         }
 
 
